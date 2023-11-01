@@ -1,0 +1,2 @@
+class GameVars:
+    run = True

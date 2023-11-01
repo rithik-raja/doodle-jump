@@ -11,6 +11,7 @@ class Player(Component):
     def __init__(self, x, y, width, height, color):
         self.x_vel = 0
         self.y_vel = 0
+        self.jump_height = 15
         super().__init__(x, y, width, height, color)
 
     def experience_gravity(self):
@@ -28,5 +29,5 @@ class Player(Component):
         self.x += self.x_vel
 
     def jump(self):
-        self.y_vel = -13
+        self.y_vel = -self.jump_height
 

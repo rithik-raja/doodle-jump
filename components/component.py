@@ -14,3 +14,8 @@ class Component:
     
     def draw_self(self, surface, camera):
         pg.draw.rect(surface, self.color, self.get_rect(x_offset=-camera.x, y_offset=-camera.y))
+
+    def recycle_top(self, player, limit, offset, x):
+        if (self.y - player.y) > limit:
+            self.y -= offset
+            self.x = x

@@ -17,13 +17,13 @@ def generate_platforms():
         ) for y in range(0, SCREEN_HEIGHT + PLATFORM_OFFSCREEN_BUFFER, PLATFORM_SPACING)
     ] + [ # guaranteed platform below player
         Platform(
-            x=SCREEN_WIDTH // 2 - (width + 20) // 2,
+            x=SCREEN_WIDTH // 2 - width // 2,
             y=SCREEN_HEIGHT // 2 + 100,
-            width=width + 20,
+            width=width,
             height=height,
             color=Colors.BLACK
         )
-    ] + [
+    ] + [ # spikes
         Platform(
             x=i,
             y=SCREEN_HEIGHT,
@@ -31,5 +31,14 @@ def generate_platforms():
             height=height * 2,
             color=Colors.RED,
             platform_type=2
-        ) for i in range(0, SCREEN_WIDTH, width)
+        ) for i in range(-width, SCREEN_WIDTH + width, width)
+    ] + [ # red block below spikes
+        Platform(
+            x=0,
+            y=SCREEN_HEIGHT + height * 4,
+            width=SCREEN_WIDTH,
+            height=SCREEN_HEIGHT,
+            color=Colors.RED,
+            platform_type=3
+        )
     ]

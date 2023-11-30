@@ -14,3 +14,6 @@ class Fragment(Player):
         self.x_vel = random.randint(-20, 20)
         self.y_vel = random.randint(-20, 5)
 
+    def draw_self(self, surface, camera):
+        return super(Player, self).draw_self(surface, camera)
+

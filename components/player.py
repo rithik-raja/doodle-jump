@@ -15,7 +15,7 @@ class Player(Component):
         super().__init__(x, y, width, height, color)
 
     def experience_gravity(self):
-        self.y_vel += Player.y_acc
+        self.y_vel += self.__class__.y_acc
         self.y += self.y_vel
 
     def experience_horizontal_slow_down(self):
@@ -23,9 +23,9 @@ class Player(Component):
 
     def move_horizontal(self, left_impulse, right_impulse):
         left_impulse = -left_impulse
-        self.x_vel += Player.x_acc * (left_impulse + right_impulse)
-        if abs(self.x_vel) > Player.vel_limit:
-            self.x_vel = self.x_vel * Player.vel_limit / abs(self.x_vel)
+        self.x_vel += self.__class__.x_acc * (left_impulse + right_impulse)
+        if abs(self.x_vel) > self.__class__.vel_limit:
+            self.x_vel = self.x_vel * self.__class__.vel_limit / abs(self.x_vel)
         self.x += self.x_vel
 
     def jump(self):

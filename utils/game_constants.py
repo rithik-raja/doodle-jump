@@ -8,3 +8,5 @@ class Colors:
     RED = (255, 0, 0)
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
+    BLUE = (0,0, 225)
+    GRAY = (169, 169, 169)

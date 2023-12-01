@@ -14,14 +14,11 @@ class Player(Component):
         self.x_vel = 0
         self.y_vel = 0
         self.jump_height = 15
+        self.character = pg.image.load('assets/images/character.png').convert_alpha()
         super().__init__(x, y, width, height, color)
 
     def draw_self(self, surface, camera):
-        super().draw_self(surface, camera)
-        pg.draw.circle(surface, Colors.WHITE, (self.x + camera.x + self.width // 5, self.y - camera.y + self.height // 3), 5)
-        pg.draw.circle(surface, Colors.WHITE, (self.x + camera.x + self.width * 4 // 5, self.y - camera.y + self.height // 3), 5)
-        rect = pg.Rect(self.x + camera.x + self.width // 4, self.y - camera.y + 35, self.width // 2, 5)
-        pg.draw.rect(surface, Colors.WHITE, rect)
+        surface.blit(self.character, (self.x + camera.x, self.y - camera.y))
 
     def experience_gravity(self):
         self.y_vel += self.__class__.y_acc

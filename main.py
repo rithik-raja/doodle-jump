@@ -18,13 +18,13 @@ pg.init()
 # Create the game window
 screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pg.time.Clock()
-pg.display.set_caption("Generic Jumping Game")
+pg.display.set_caption("Jason Jumps")
 
 # init player and camera
 player = Player(x=SCREEN_WIDTH // 2 - 30, y=SCREEN_HEIGHT // 2, width=60, height=60, color=Colors.GRAY)
 camera = Camera(init_x=0, follow_rate=CAMERA_SMOOTHNESS)
 
-# init fonts and sounds
+# init fonts and sounds and background image
 font_path = os.path.join(os.getcwd(), "assets", "fonts", "kongtext", "kongtext.ttf")
 font = pg.font.Font(font_path, 30)
 font2 = pg.font.Font(font_path, 20)
@@ -32,6 +32,9 @@ sounds = {
     "jump": pg.mixer.Sound(os.path.join(os.getcwd(), "assets", "sounds", "jump.wav")),
     "game_over": pg.mixer.Sound(os.path.join(os.getcwd(), "assets", "sounds", "game_over.wav"))
 }
+background_path = os.path.join(os.getcwd(), "assets", "images", "background.jpg")
+background = pg.image.load(background_path).convert()
+
 
 # make some platforms
 platforms = generate_platforms()
@@ -91,7 +94,7 @@ while GameVars.run:
                 GameVars.score = 0
 
         # ALL RENDERING
-        screen.fill(Colors.WHITE) # clear previous render
+        screen.blit(background, (0,0)) # clear previous render
         for platform in platforms:
             platform.draw_self(surface=screen, camera=camera)
         if GameVars.state == 3:
@@ -101,10 +104,10 @@ while GameVars.run:
             player.draw_self(surface=screen, camera=camera)
 
         GameVars.score = max(GameVars.score, int(-player.y + SCREEN_HEIGHT // 2))
-        score_surf = font.render(f"Score-{GameVars.score}", False, Colors.GRAY)
+        score_surf = font.render(f"Score-{GameVars.score}", False, Colors.WHITE)
         score_rect = score_surf.get_rect()
         score_rect.topleft = (10, 10)
-        highscorescore_surf = font2.render(f"Highscore-{GameVars.highscore}", False, Colors.GRAY)
+        highscorescore_surf = font2.render(f"Highscore-{GameVars.highscore}", False, Colors.GREEN)
         highscore_rect = highscorescore_surf.get_rect()
         highscore_rect.topleft = (13, 40)
         screen.blit(score_surf, score_rect)
@@ -117,7 +120,7 @@ while GameVars.run:
                 y=player.y + i // 4,
                 width=player.width // 4,
                 height=player.height // 4,
-                color=Colors.GRAY
+                color=Colors.ORANGE
             ) for i in range(16)
         ]
         GameVars.state = 3

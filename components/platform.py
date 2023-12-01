@@ -25,8 +25,11 @@ class Platform(Component):
                 GameVars.sound = "game_over"
 
     def draw_self(self, surface, camera):
-        if self.platform_type == 1 or self.platform_type == 3: # normal platform
-            return super().draw_self(surface, camera)
+        if self.platform_type == 1:  # normal platform
+            platform_image = pg.image.load('assets/images/platform.png').convert_alpha()
+            platform_rect = pg.Rect(self.x + camera.x, self.y - camera.y, self.width, self.height)
+            surface.blit(platform_image, platform_rect.topleft)
+            
         elif self.platform_type == 2: # spike
             x = self.x + camera.x
             y = self.y - camera.y
@@ -38,7 +41,10 @@ class Platform(Component):
                     (x, y + self.height),
                     (x + self.width, y + self.height)
                 ]
-            )            
+            )
+
+        elif self.platform_type == 3: #platform below spikes
+            return super().draw_self(surface, camera)
 
     def recycle_top(self, player, limit, offset, x):
         if self.platform_type == 1: # unique behavior for spikes

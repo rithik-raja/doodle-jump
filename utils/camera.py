@@ -7,10 +7,10 @@ class Camera:
         self.y = self.y_temp = self.y_offset = init_y
         self.follow_rate = follow_rate
 
-    def follow_player(self, player, disable_horizontal=False, disable_vertical=False):
+    def follow_player(self, player, disable_horizontal=False, disable_vertical=False, immediate=False):
         if not disable_horizontal:
-            self.x_temp += (player.x - self.x_temp) / self.follow_rate
+            self.x_temp += (player.x - self.x_temp) / (1 if immediate else self.follow_rate)
             self.x = self.x_temp - self.x_offset
         if not disable_vertical:
-            self.y_temp += (player.y - self.y_temp) / self.follow_rate
+            self.y_temp += (player.y - self.y_temp) / (1 if immediate else self.follow_rate)
             self.y = self.y_temp - self.y_offset
